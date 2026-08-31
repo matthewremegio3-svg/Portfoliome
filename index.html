@@ -62,7 +62,7 @@
         pointer-events: none;
     }
 
-    a {
+    a, button, input, textarea {
         color: inherit;
         text-decoration: none;
         cursor: none;
@@ -209,8 +209,8 @@
         color: var(--accent-cyan);
     }
 
-    /* About Section */
-    .about, .tech {
+    /* About & Tech Sections */
+    .about, .tech, .contact {
         padding: 110px 0;
     }
 
@@ -261,7 +261,7 @@
         justify-content: center;
     }
 
-    .about-text h2 {
+    .about-text h2, .contact-left h2 {
         font-size: clamp(28px, 3.5vw, 44px);
         line-height: 1.2;
         font-weight: 700;
@@ -325,6 +325,163 @@
     .i6 { left: 78%; top: 165px; animation-delay: 2s; }
     .i7 { left: 88%; top: 75px; animation-delay: 2.4s; }
 
+    /* Connect With Me Section */
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+
+    .contact-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .contact-left p {
+        margin-top: 16px;
+        color: var(--text-muted);
+        font-size: 16px;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: #4ade80;
+        background: rgba(74, 222, 128, 0.1);
+        border: 1px solid rgba(74, 222, 128, 0.25);
+        padding: 6px 12px;
+        border-radius: 9999px;
+        width: fit-content;
+        margin-bottom: 24px;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        background: #4ade80;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #4ade80;
+        animation: pulse 2s infinite;
+    }
+
+    .contact-info-list {
+        margin: 32px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .contact-info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .contact-info-label {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .contact-info-val {
+        font-size: 16px;
+        color: var(--text-main);
+        font-weight: 500;
+    }
+
+    .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 10px;
+    }
+
+    .social-btn {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        padding: 10px 18px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-color);
+        transition: all 0.25s ease;
+    }
+
+    .social-btn:hover {
+        border-color: var(--accent-cyan);
+        background: rgba(56, 189, 248, 0.1);
+        color: var(--accent-cyan);
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-group label {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border-color);
+        padding: 14px 16px;
+        border-radius: 12px;
+        color: var(--text-main);
+        font-family: var(--font-sans);
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--accent-cyan);
+        background: rgba(56, 189, 248, 0.03);
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .submit-btn {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 16px 24px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+        color: #070913;
+        font-weight: 700;
+        border: none;
+        margin-top: 8px;
+        transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .submit-btn:hover {
+        filter: brightness(1.1);
+        transform: translateY(-2px);
+    }
+
     /* Footer */
     footer {
         padding: 40px 0;
@@ -352,13 +509,19 @@
         50% { transform: translateY(-16px); }
     }
 
+    @keyframes pulse {
+        0% { transform: scale(0.95); opacity: 0.8; }
+        50% { transform: scale(1.15); opacity: 1; }
+        100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
     /* Responsive */
     @media (max-width: 900px) {
         body { cursor: auto; }
-        a { cursor: pointer; }
+        a, button, input, textarea { cursor: auto; }
         .cursor { display: none; }
 
-        .hero, .about-grid {
+        .hero, .about-grid, .contact-grid {
             grid-template-columns: 1fr;
             gap: 40px;
         }
@@ -396,6 +559,7 @@
             <a href="#hero">Home</a>
             <a href="#about">About</a>
             <a href="#tech">Tech</a>
+            <a href="#contact">Contact</a>
         </nav>
     </div>
 </header>
@@ -455,6 +619,63 @@
             </div>
             <div class="tech-icon i7" title="PHP">
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" />
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact container reveal">
+        <div class="section-head">
+            <span>Inquiries</span>
+            <span>Connect With Me</span>
+        </div>
+
+        <div class="contact-grid">
+            <div class="card contact-left tilt-card">
+                <div>
+                    <div class="status-badge">
+                        <span class="status-dot"></span> Available for new projects
+                    </div>
+                    <h2>Let's build something remarkable.</h2>
+                    <p>Whether you have a specific project in mind, need technical consultation, or just want to connect—my inbox is always open.</p>
+                </div>
+
+                <div class="contact-info-list">
+                    <div class="contact-info-item">
+                        <span class="contact-info-label">Direct Email</span>
+                        <a href="mailto:hello@geraldmatthew.dev" class="contact-info-val">hello@geraldmatthew.dev</a>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="contact-info-label">Base Location</span>
+                        <span class="contact-info-val">Remote / Worldwide</span>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="contact-info-label" style="display:block; margin-bottom: 10px;">Find me on</span>
+                    <div class="social-links">
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-btn">GitHub</a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn">LinkedIn</a>
+                        <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-btn">Twitter / X</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card tilt-card">
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent!');">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" placeholder="Jane Doe" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" placeholder="jane@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" placeholder="Tell me about your project or inquiry..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message &rarr;</button>
+                </form>
             </div>
         </div>
     </section>
