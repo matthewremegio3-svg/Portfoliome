@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gerald Matthew | Creative Developer</title>
+
+<style>
+    :root {
+        --bg-dark: #070913;
+        --bg-card: rgba(18, 24, 43, 0.5);
+        --accent-cyan: #38bdf8;
+        --accent-purple: #818cf8;
+        --text-main: #f1f5f9;
+        --text-muted: #94a3b8;
+        --border-color: rgba(255, 255, 255, 0.08);
+        --border-hover: rgba(56, 189, 248, 0.35);
+        --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+        font-family: var(--font-sans);
+        line-height: 1.6;
+        overflow-x: hidden;
+        cursor: none;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle Animated Background Grid */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.08), transparent 35%),
+            radial-gradient(circle at 85% 65%, rgba(129, 140, 248, 0.08), transparent 35%),
+            linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+        background-size: auto, auto, 40px 40px, 40px 40px;
+        z-index: -2;
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at center, transparent, var(--bg-dark) 85%);
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        cursor: none;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+        position: fixed;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--accent-cyan);
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 12px var(--accent-cyan);
+        transition: transform 0.1s ease, background 0.2s ease;
+    }
+
+    .container {
+        width: min(1140px, calc(100% - 48px));
+        margin: auto;
+        position: relative;
+        z-index: 5;
+    }
+
+    /* Navigation */
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 76px;
+        z-index: 100;
+        background: rgba(7, 9, 19, 0.75);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav {
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        color: var(--text-main);
+        text-transform: uppercase;
+    }
+
+    .logo span {
+        color: var(--accent-cyan);
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 32px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        letter-spacing: 1px;
+    }
+
+    .nav a {
+        color: var(--text-muted);
+        transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+        color: var(--accent-cyan);
+    }
+
+    section {
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Section Headers */
+    .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 48px;
+        font-family: var(--font-mono);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: var(--accent-cyan);
+    }
+
+    /* Hero Section */
+    .hero {
+        min-height: 100vh;
+        padding-top: 100px;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .label {
+        font-family: var(--font-mono);
+        color: var(--accent-cyan);
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+    .hero h1 {
+        font-size: clamp(48px, 7vw, 96px);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -2px;
+        color: var(--text-main);
+    }
+
+    .hero h1 span {
+        background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+        margin-top: 24px;
+        max-width: 500px;
+        color: var(--text-muted);
+        line-height: 1.7;
+        font-size: 18px;
+    }
+
+    .hero-role {
+        font-family: var(--font-mono);
+        font-size: clamp(22px, 3vw, 42px);
+        color: var(--text-main);
+        text-align: right;
+    }
+
+    .hero-role span {
+        color: var(--accent-cyan);
+    }
+
+    /* About Section */
+    .about, .tech {
+        padding: 110px 0;
+    }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 32px;
+    }
+
+    .card {
+        padding: 40px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-card);
+        backdrop-filter: blur(16px);
+        border-radius: 20px;
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        border-color: var(--border-hover);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .profile-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .profile-img {
+        width: 100%;
+        max-height: 380px;
+        object-fit: cover;
+        border-radius: 12px;
+        filter: grayscale(20%) contrast(105%);
+        opacity: 0.9;
+        transition: filter 0.3s ease;
+    }
+
+    .profile-card:hover .profile-img {
+        filter: grayscale(0%);
+    }
+
+    .about-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .about-text h2 {
+        font-size: clamp(28px, 3.5vw, 44px);
+        line-height: 1.2;
+        font-weight: 700;
+        letter-spacing: -1px;
+        color: var(--text-main);
+    }
+
+    .about-text p {
+        margin-top: 20px;
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-size: 16px;
+    }
+
+    /* Tech Stack Board */
+    .tech-board {
+        height: 300px;
+        position: relative;
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        background: var(--bg-card);
+        backdrop-filter: blur(16px);
+        overflow: hidden;
+    }
+
+    .tech-icon {
+        position: absolute;
+        width: 58px;
+        height: 58px;
+        padding: 12px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(8px);
+        animation: float 6s ease-in-out infinite;
+        transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .tech-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .tech-icon:hover {
+        border-color: var(--accent-cyan);
+        background: rgba(56, 189, 248, 0.12);
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        transform: scale(1.12) !important;
+    }
+
+    .i1 { left: 8%; top: 60px; animation-delay: 0s; }
+    .i2 { left: 22%; top: 165px; animation-delay: .4s; }
+    .i3 { left: 36%; top: 70px; animation-delay: .8s; }
+    .i4 { left: 50%; top: 160px; animation-delay: 1.2s; }
+    .i5 { left: 64%; top: 60px; animation-delay: 1.6s; }
+    .i6 { left: 78%; top: 165px; animation-delay: 2s; }
+    .i7 { left: 88%; top: 75px; animation-delay: 2.4s; }
+
+    /* Footer */
+    footer {
+        padding: 40px 0;
+        text-align: center;
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+
+    /* Animations */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-16px); }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        body { cursor: auto; }
+        a { cursor: pointer; }
+        .cursor { display: none; }
+
+        .hero, .about-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .hero-role {
+            text-align: left;
+        }
+
+        .tech-board {
+            height: auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .tech-icon {
+            position: static;
+            animation: none;
+            width: 52px;
+            height: 52px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="cursor"></div>
+
+<header>
+    <div class="container nav">
+        <a href="#hero" class="logo">Gerald<span>.dev</span></a>
+        <nav class="nav-links">
+            <a href="#hero">Home</a>
+            <a href="#about">About</a>
+            <a href="#tech">Tech</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section id="hero" class="hero container reveal">
+        <div>
+            <span class="label">PORTFOLIO</span>
+            <h1>Gerald<br><span>Matthew</span></h1>
+            <p>I build modern, scalable web interfaces with clean architecture, interactive motion, and pixel-perfect precision.</p>
+        </div>
+        <div class="hero-role">
+            <span id="typingText"></span>
+        </div>
+    </section>
+
+    <section id="about" class="about container reveal">
+        <div class="section-head">
+            <span>About</span>
+            <span>Profile</span>
+        </div>
+        <div class="about-grid">
+            <div class="card profile-card tilt-card">
+                <img class="profile-img" src="acaa70d0-55d7-4e86-965c-0efb66c6f18e.jpg" alt="Gerald Matthew">
+            </div>
+            <div class="card about-text tilt-card">
+                <h2>Architecting modern web experiences.</h2>
+                <p>I am a passionate frontend engineer focused on crafting intuitive, high-performance web applications. I bridge the gap between design and technical execution, using modern web standards to transform creative ideas into functional digital products.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="tech" class="tech container reveal">
+        <div class="section-head">
+            <span>Capabilities</span>
+            <span>Tech Stack</span>
+        </div>
+
+        <div class="tech-board" id="techBoard">
+            <div class="tech-icon i1" title="GitHub">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
+            </div>
+            <div class="tech-icon i2" title="HTML5">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+            </div>
+            <div class="tech-icon i3" title="CSS3">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
+            </div>
+            <div class="tech-icon i4" title="JavaScript">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+            </div>
+            <div class="tech-icon i5" title="React">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+            </div>
+            <div class="tech-icon i6" title="TypeScript">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" />
+            </div>
+            <div class="tech-icon i7" title="PHP">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" />
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Gerald Matthew. Designed & Developed with care.</p>
+    </div>
+</footer>
+
+<script>
+    // Custom Cursor
+    const cursor = document.querySelector('.cursor');
+    if (window.innerWidth > 900) {
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+    }
+
+    // Typewriter Effect
+    const text = 'Creative Developer';
+    const typingText = document.getElementById('typingText');
+    let index = 0;
+
+    function typeEffect() {
+        if (index <= text.length) {
+            typingText.innerHTML = text.slice(0, index) + '<span style="color:var(--accent-cyan)">|</span>';
+            index++;
+            setTimeout(typeEffect, 100);
+        } else {
+            setTimeout(() => {
+                index = 0;
+                typeEffect();
+            }, 2500);
+        }
+    }
+
+    typeEffect();
+
+    // Scroll Reveal
+    const revealElements = document.querySelectorAll('.reveal');
+
+    function revealOnScroll() {
+        revealElements.forEach((element) => {
+            const top = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (top < windowHeight - 80) {
+                element.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    // 3D Card Tilt Effect
+    const tiltCards = document.querySelectorAll('.tilt-card');
+
+    tiltCards.forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+            if (window.innerWidth <= 900) return;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const rotateX = (y / rect.height - 0.5) * -8;
+            const rotateY = (x / rect.width - 0.5) * 8;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        });
+    });
+
+    // Tech Board Mouse Parallax
+    const techBoard = document.getElementById('techBoard');
+    const icons = document.querySelectorAll('.tech-icon');
+
+    techBoard.addEventListener('mousemove', (e) => {
+        if (window.innerWidth <= 900) return;
+        const rect = techBoard.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        icons.forEach((icon, i) => {
+            const speed = (i + 1) * 0.005;
+            const moveX = (mouseX - rect.width / 2) * speed;
+            const moveY = (mouseY - rect.height / 2) * speed;
+            icon.style.marginLeft = moveX + 'px';
+            icon.style.marginTop = moveY + 'px';
+        });
+    });
+
+    techBoard.addEventListener('mouseleave', () => {
+        icons.forEach((icon) => {
+            icon.style.marginLeft = '0px';
+            icon.style.marginTop = '0px';
+        });
+    });
+</script>
+</body>
+</html>
