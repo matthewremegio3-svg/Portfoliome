@@ -35,7 +35,6 @@
         font-family: var(--font-sans);
         line-height: 1.6;
         overflow-x: hidden;
-        cursor: none;
         -webkit-font-smoothing: antialiased;
     }
 
@@ -62,24 +61,15 @@
         pointer-events: none;
     }
 
-    a, button, input, textarea {
+    a, button {
         color: inherit;
         text-decoration: none;
-        cursor: none;
+        cursor: pointer;
     }
 
-    /* Custom Cursor */
-    .cursor {
-        position: fixed;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: var(--accent-cyan);
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        box-shadow: 0 0 12px var(--accent-cyan);
-        transition: transform 0.1s ease, background 0.2s ease;
+    input, textarea {
+        color: inherit;
+        text-decoration: none;
     }
 
     .container {
@@ -274,6 +264,130 @@
         color: var(--text-muted);
         line-height: 1.8;
         font-size: 16px;
+    }
+
+    /* Projects Subsection inside About */
+    .about-projects {
+        margin-top: 56px;
+    }
+
+    .subsection-title {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent-purple);
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .subsection-title::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(129, 140, 248, 0.3), transparent);
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    .project-card {
+        padding: 32px 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    .project-num {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--accent-cyan);
+        font-weight: 700;
+    }
+
+    .project-badge {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #38bdf8;
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        padding: 4px 8px;
+        border-radius: 6px;
+    }
+
+    .project-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 12px;
+        transition: color 0.2s ease;
+    }
+
+    .project-card:hover .project-title {
+        color: var(--accent-cyan);
+    }
+
+    .project-desc {
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+        flex-grow: 1;
+    }
+
+    .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+
+    .project-tag {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-muted);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 4px 10px;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+    }
+
+    .project-links {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .project-link {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-muted);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: color 0.25s ease;
+    }
+
+    .project-link:hover {
+        color: var(--accent-cyan);
     }
 
     /* Tech Stack Board */
@@ -524,13 +638,14 @@
 
     /* Responsive */
     @media (max-width: 900px) {
-        body { cursor: auto; }
-        a, button, input, textarea { cursor: auto; }
-        .cursor { display: none; }
-
         .hero, .about-grid, .contact-grid {
             grid-template-columns: 1fr;
             gap: 40px;
+        }
+
+        .projects-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
 
         .hero-role {
@@ -554,8 +669,6 @@
 </style>
 </head>
 <body>
-
-<div class="cursor"></div>
 
 <header>
     <div class="container nav">
@@ -581,11 +694,13 @@
         </div>
     </section>
 
+    <!-- ABOUT SECTION WITH PROJECTS -->
     <section id="about" class="about container reveal">
         <div class="section-head">
             <span>About</span>
-            <span>Profile</span>
+            <span>Profile & Highlights</span>
         </div>
+        
         <div class="about-grid">
             <div class="card profile-card tilt-card">
                 <img class="profile-img" src="acaa70d0-55d7-4e86-965c-0efb66c6f18e.jpg" alt="Gerald Matthew">
@@ -593,6 +708,95 @@
             <div class="card about-text tilt-card">
                 <h2>Architecting modern web experiences.</h2>
                 <p>I’m a full-stack developer who enjoys turning ideas into practical, reliable web applications. I work across the user interface, server-side logic, and databases, with a focus on writing clear code, solving problems thoughtfully, and creating experiences that work smoothly from end to end.</p>
+            </div>
+        </div>
+
+        <div class="about-projects">
+            <div class="subsection-title">
+                <span>Featured Projects & Built Solutions</span>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="card project-card tilt-card">
+                    <div>
+                        <div class="project-header">
+                            <span class="project-num">01 // FULL-STACK</span>
+                            <span class="project-badge">Web App</span>
+                        </div>
+                        <h3 class="project-title">Student Records Management</h3>
+                        <p class="project-desc">A localized CRUD data administration portal featuring relational database records, custom search filtering, and seamless CSV report data exports.</p>
+                    </div>
+                    <div>
+                        <div class="project-tags">
+                            <span class="project-tag">PHP</span>
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="project-link">
+                                Source Code &rarr;
+                            </a>
+                            <a href="#contact" class="project-link">
+                                Details &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="card project-card tilt-card">
+                    <div>
+                        <div class="project-header">
+                            <span class="project-num">02 // PORTAL</span>
+                            <span class="project-badge">System</span>
+                        </div>
+                        <h3 class="project-title">e-Services Resident Portal</h3>
+                        <p class="project-desc">Digital document request processing platform complete with administrative queues, transaction verification, and status monitoring dashboard.</p>
+                    </div>
+                    <div>
+                        <div class="project-tags">
+                            <span class="project-tag">PHP</span>
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">CSS3</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="project-link">
+                                Source Code &rarr;
+                            </a>
+                            <a href="#contact" class="project-link">
+                                Details &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="card project-card tilt-card">
+                    <div>
+                        <div class="project-header">
+                            <span class="project-num">03 // CORE ENGINE</span>
+                            <span class="project-badge">Logic</span>
+                        </div>
+                        <h3 class="project-title">QuestForge Platform</h3>
+                        <p class="project-desc">Modular web platform structured for interactive task gamification, state management, algorithmic efficiency, and smooth responsive views.</p>
+                    </div>
+                    <div>
+                        <div class="project-tags">
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">OOP</span>
+                            <span class="project-tag">HTML5</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="project-link">
+                                Source Code &rarr;
+                            </a>
+                            <a href="#contact" class="project-link">
+                                Details &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -720,15 +924,6 @@
 </footer>
 
 <script>
-    // Custom Cursor
-    const cursor = document.querySelector('.cursor');
-    if (window.innerWidth > 900) {
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-    }
-
     // Typewriter Effect
     const text = 'Creative Developer';
     const typingText = document.getElementById('typingText');
@@ -785,7 +980,6 @@
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
         });
     });
-
 </script>
 </body>
 </html>
